@@ -5,6 +5,7 @@ local base = "https://raw.githubusercontent.com/SFitzgerald004/ComputerCraft/mai
 local files = {
     -- common files, meant for both installations
     { level = "common", url = base .. "config.lua", path = "inventory_management/config.lua" },
+    { level = "common", url = base .. "README.md", path = "inventory_management/README.md" },
     -- collector files, meant only for installations that collect inventory data
     { level = "collector", url = base .. "inv_collector.lua", path = "inventory_management/inv_collector.lua" },
     { level = "collector", url = base .. "inv_libraries/chest.lua", path = "inventory_management/inv_libraries/chest.lua" },
@@ -35,7 +36,7 @@ local function installSoftware(type)
             end
         end
     else
-        error("[ERROR] Bad parameter, input either 'reader' or 'collector'.", 1)
+        error("[ERROR] Bad parameter, input either 'reader' or 'collector'.", 0)
     end
 
     print("Installation for type " .. type .. " complete!")
