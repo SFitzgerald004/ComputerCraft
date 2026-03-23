@@ -1,19 +1,19 @@
 -- message_read.lua
+dofile("message_send_recieve/config.lua")
 
 -- assumes wireless
 local modem = peripheral.find("modem") or error("[ERROR] No modem detected")
-local read_channel = 33
 
 -- check if read channel is open
-if (modem.isOpen(read_channel)) then
-    print("[MODEM] Channel", read_channel, "is already open")
+if (modem.isOpen(READ_CHANNEL)) then
+    print("[MODEM] Channel", READ_CHANNEL, "is already open")
 else
-    modem.open(read_channel)
-    print("[MODEM] Channel", read_channel, "is now open")
+    modem.open(READ_CHANNEL)
+    print("[MODEM] Channel", READ_CHANNEL, "is now open")
 end
 
-local name, channel, reply_channel, message, distance
+local event, name, channel, reply_channel, message, distance
 repeat
-    name, channel, reply_channel, message, distance = os.pullEvent("modem_message")
-    print("[MESSAGE]", name, channel, reply_channel, message, distance)
-until read_channel == 9999
+    event, name, channel, reply_channel, message, distance = os.pullEvent("modem_message")
+    print("[MESSAGE]", event, name, channel, reply_channel, message, distance)
+until READ_CHANNEL == 9999

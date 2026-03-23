@@ -1,13 +1,14 @@
 -- message_send.lua
 local modem = peripheral.find("modem") or error("[ERROR] No modem detected")
-local send_channel = 33
+
+dofile("message_send_recieve/config.lua")
 
 -- check channel availibility
-if (modem.isOpen(send_channel)) then
-    print("[MODEM] Channel", send_channel, "is already open")
+if (modem.isOpen(SEND_CHANNEL)) then
+    print("[MODEM] Channel", SEND_CHANNEL, "is already open")
 else
-    modem.open(send_channel)
-    print("[MODEM] Channel", send_channel, "is now open")
+    modem.open(SEND_CHANNEL)
+    print("[MODEM] Channel", SEND_CHANNEL, "is now open")
 end
 
 print("What would you like to say? (input '/q' to quit)")
@@ -15,6 +16,6 @@ repeat
     write(">")
     local message = read()
     if message ~= "/q" then
-        modem.transmit(send_channel, send_channel, message)
+        modem.transmit(SEND_CHANNEL, SEND_CHANNEL, message)
     end
 until message == "/q"

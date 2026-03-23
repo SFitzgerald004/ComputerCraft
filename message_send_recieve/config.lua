@@ -1,0 +1,3 @@
+-- config.lua
+READ_CHANNEL = 33
+SEND_CHANNEL = 33
