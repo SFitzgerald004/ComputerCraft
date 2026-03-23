@@ -51,7 +51,7 @@ local function listenForRequests()
             end
 
             -- transmits data
-            modem.transmit(RESPONSE_CHANNEL, RESPONSE_CHANNEL, inventory_data)
+            modem.transmit(RESPONSE_CHANNEL, RESPONSE_CHANNEL, { id = os.getComputerID(), data = inventory_data })
             inventory_data = {}
         end
     end

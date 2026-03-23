@@ -54,8 +54,9 @@ while true do
 
                 monitor.write("========== INVENTORY RESPONSE " .. os.time() .. " ==========")
                 y = 3
+                table.sort(responses, function(a, b) return a.id < b.id end)
                 for k, response in pairs(responses) do
-                    for i, record in pairs(response) do
+                    for i, record in pairs(response.data) do
                         local name = record.name
                         local percentage = record.percentage
                         local fields = record.fields
