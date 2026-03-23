@@ -6,3 +6,6 @@ REQUEST_CHANNEL = 88
 
 -- Response Channel is what the collector transmits to. This is what the reader uses to display the information
 RESPONSE_CHANNEL = 99
+
+-- Register Channel is used to tell the reader the number of different computers that are sending out information
+REGISTER_CHANNEL = 77

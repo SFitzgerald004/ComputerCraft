@@ -17,7 +17,7 @@ function read(chest)
     return {
         name = peripheral.getName(chest),
         -- location not done yet
-        capacity_used = percentage_used.. "(".. fraction.. ")",
+        capacity_used = percentage_used.. " (".. fraction.. ")",
         percentage = percentage,
         fields = {
             { key = "name", label = "Name" },
