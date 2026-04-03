@@ -27,7 +27,7 @@ while true do
     if event == "timer" then
         -- check if any computers need to be pruned
         for id in pairs(collectors) do
-            if os.clock() - last_seen[id] > 3 then
+            if os.epoch("utc") - last_seen[id] > 3000 then
                 collectors[id] = nil
                 last_seen[id] = nil
             end
@@ -91,7 +91,7 @@ while true do
             end
         elseif channel == REGISTER_CHANNEL then
             collectors[message] = true
-            last_seen[message] = os.clock()
+            last_seen[message] = os.epoch("utc")
         end
     end
 end

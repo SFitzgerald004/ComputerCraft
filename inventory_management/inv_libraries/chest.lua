@@ -2,6 +2,10 @@
 
 -- iterate through and count every slot
 function read(chest)
+    if chest == nil or type(chest.size) ~= "function" or type(chest.list) ~= "function" then
+        return nil
+    end
+
     local current = 0
     local percentage = 0
     local max = chest.size() * 64
