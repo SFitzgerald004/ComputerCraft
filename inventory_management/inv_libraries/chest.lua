@@ -28,4 +28,4 @@ local function read_chest(chest)
     }
 end
 
-return read
+return read_chest
