@@ -9,6 +9,8 @@ local files = {
     -- collector files, meant only for installations that collect inventory data
     { level = "collector", url = base .. "inv_collector.lua", path = "inventory_management/inv_collector.lua" },
     { level = "collector", url = base .. "inv_libraries/chest.lua", path = "inventory_management/inv_libraries/chest.lua" },
+    { level = "collector", url = base .. "inv_libraries/tank.lua", path = "inventory_management/inv_libraries/tank.lua" },
+    { level = "collector", url = base .. "inv_libraries/libraries.md", path = "inventory_management/inv_libraries/libraries.md" },
     -- reader files, meant only for installations that show inventory data
     { level = "reader", url = base .. "inv_reader.lua", path = "inventory_management/inv_reader.lua" }
 }
@@ -43,6 +45,6 @@ local function installSoftware(type)
 end
 
 -- user type prompt
-print("Install type (reader/collector): ")
+print("Install type (reader/collector):")
 local install_type = io.read()
 installSoftware(install_type)
