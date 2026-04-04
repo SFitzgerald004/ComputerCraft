@@ -3,7 +3,6 @@
 dofile("inventory_management/config.lua")
 local modem = peripheral.wrap("top")
 local inventory_data = {}
-local instance_data = nil
 
 -- Opens channel to recieve requests from reader
 modem.open(REQUEST_CHANNEL)
@@ -27,47 +26,15 @@ local function listenForRequests()
             print("Distance:", distance)
 
             -- sends peripheral off to library
-            for i, inventory_name in ipairs(peripheral.getNames()) do
-                if not peripheral.hasType(inventory_name, "inventory") then
-                    goto continue_inventory
-                end
-
-                if not peripheral.hasType(inventory_name, "chest") then
-                    goto continue_inventory
-                end
-
-                local inventory = peripheral.wrap(inventory_name)
-                if inventory == nil then
-                    print("Skipping inventory with failed wrap:", inventory_name)
-                    goto continue_inventory
-                end
-
-                instance_data = nil
-                -- what this will do is for every instance of an inventory, it will be sent 
-                -- out to the file of its specific inventory type to send back the data
-                if peripheral.hasType(inventory_name, "chest") then
-                    -- send to chest.lua
-                    -- add to instance_data
-                    local ok, data = pcall(read_chest, inventory)
-                    if ok then
-                        instance_data = data
-                    else
-                        print("Chest read failed for", inventory_name, tostring(data))
+            for _, inventory_name in ipairs(peripheral.getNames()) do
+                if peripheral.hasType(inventory_name, "inventory") then
+                    local ok, data = pcall(read_chest, inventory_name)
+                    if ok and data ~= nil then
+                        table.insert(inventory_data, data)
+                    elseif not ok then
+                        print("Inventory read failed for", inventory_name, tostring(data))
                     end
-                elseif peripheral.hasType(inventory_name, "storage_drawer") then -- double check this naming
-                    -- send to storage_drawer.lua
-                    -- add to instance_data
-                elseif peripheral.hasType(inventory_name, "tank") then -- also double check this naming
-                    -- send off to tank.lua
-                    -- add to instance_data
                 end
-
-                -- add to inventory_data field
-                if instance_data ~= nil then
-                    table.insert(inventory_data, instance_data)
-                end
-
-                ::continue_inventory::
             end
 
             -- transmits data
