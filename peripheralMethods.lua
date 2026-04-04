@@ -13,7 +13,10 @@ for index, side in ipairs(sides) do
         currentPeriph = peripheral.wrap(side)
 
         -- print out peripheral methods
-        print(" !-", peripheral.getMethods(currentPeriph))
+        print(" !- Available Methods:")
+        for index, method in ipairs(peripheral.getMethods(side)) do
+            print("   !- ", index, method)
+        end
         table.insert(peripherals, currentPeriph)
     else
         print(" - No peripheral found on side", side)
