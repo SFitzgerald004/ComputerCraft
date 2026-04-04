@@ -11,6 +11,7 @@ These libraries are used by the collector to handle different inventory types. T
 * Power Sources
 
 # Notes
-Storage Drawers have the types: 'functionalstorage:xxx, inventory'
+Storage Drawers have the types: 'functionalstorage:***, inventory'
 Barrels have the types: 'minecraft:barrel, inventory'
 Create Fluid Tanks have the types: 'create:fluid_tank, fluid_storage'
+Dynamos have the types: 'thermal:dynamo_***, inventory, energy_storage'

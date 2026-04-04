@@ -76,6 +76,8 @@ while true do
                                 end
                             end
 
+                            -- Need to adjust coloring for just percentage / fraction
+
                             monitor.setCursorPos(1, y)
                             y = y + 1
                             monitor.write(field.label.. ": " .. record[field.key])
