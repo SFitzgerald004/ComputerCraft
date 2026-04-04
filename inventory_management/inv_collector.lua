@@ -27,7 +27,18 @@ local function listenForRequests()
 
             -- sends peripheral off to library
             for _, inventory_name in ipairs(peripheral.getNames()) do
-                if peripheral.hasType(inventory_name, "inventory") then
+                if peripheral.hasType(inventory_name, "fluid_storage") then
+                    -- fluid storage type shit
+                    local ok, data = pcall(read_tank, inventory_name)
+                    if ok and data ~= nil then
+                        table.insert(inventory_data, data)
+                    elseif not ok then
+                        print("Inventory read failed for", inventory_name, tostring(data))
+                    end
+                elseif peripheral.hasType(inventory_name, "inventory") then
+                    -- should be separate calls or at least a way to determine the type of storage
+                    -- for example, could pass in either 'minecraft:chest' or 'minecraft:barrel' to help determine which kind of path to take
+
                     local ok, data = pcall(read_chest, inventory_name)
                     if ok and data ~= nil then
                         table.insert(inventory_data, data)
