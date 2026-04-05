@@ -52,6 +52,8 @@ while true do
                 monitor.setCursorPos(1, y)
                 monitor.clear()
 
+                -- force white text coloring
+                monitor.setTextColor(colors.white)
                 monitor.write("========== INVENTORY RESPONSE " .. os.time() .. " ==========")
                 y = 3
                 table.sort(responses, function(a, b) return a.id < b.id end)
@@ -85,6 +87,7 @@ while true do
                         y = y + 1
                     end
                 end
+                monitor.setTextColor(colors.white)
                 monitor.setCursorPos(1, y)
                 monitor.write("===============================================")
 
