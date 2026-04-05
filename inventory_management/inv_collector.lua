@@ -24,9 +24,8 @@ local function build_side_map()
     local side_map = {}
 
     for _, side_name in ipairs(SIDES) do
-        local peripheral_name = peripheral.getName(side_name)
-        if peripheral_name ~= nil then
-            side_map[side_name] = peripheral_name
+        if peripheral.isPresent(side_name) then
+            side_map[side_name] = side_name
         end
     end
 
