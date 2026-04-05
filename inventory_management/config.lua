@@ -9,3 +9,26 @@ RESPONSE_CHANNEL = 99
 
 -- Register Channel is used to tell the reader the number of different computers that are sending out information
 REGISTER_CHANNEL = 77
+
+-- Used only for fluid storage collection
+-- Each tank needs a hardcoded max fluid amount for storage. Unfortunately there is no way to obtain that data through the API itself
+--
+-- Side-based tank assignments by collector computer ID.
+-- side must be one of: top, bottom, left, right, front, back
+-- max_capacity should be in the same unit used by CC:Tweaked tank.amount.
+TANK_ASSIGNMENTS = {
+	-- [7] = {
+	--     back = {
+	--         id = "main_tank",
+	--         name = "Main Tank",
+	--         max_capacity = 81000
+	--     }
+	-- }
+    [7] = {
+        back = {
+            id = "main_tank",
+            name = "Main Tank",
+            max_capacity = 2304000
+        }
+    }
+}
