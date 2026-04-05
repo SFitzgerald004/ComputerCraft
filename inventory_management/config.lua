@@ -24,11 +24,4 @@ TANK_ASSIGNMENTS = {
 	--         max_capacity = 81000
 	--     }
 	-- }
-    [7] = {
-        back = {
-            id = "main_tank",
-            name = "Main Tank",
-            max_capacity = 2304000
-        }
-    }
 }
