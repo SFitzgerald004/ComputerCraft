@@ -1,0 +1,3 @@
+# Aeronautics support
+CC: Tweaked should automatically be able to connect with Create: Aeronautics. They connect through the Simulated mod, which is required for Aeronautics to even work.
+This is a link to the Github source code for peripherals, might be helpful: (Github)[https://github.com/Creators-of-Aeronautics/Simulated-Project/tree/17f6409ea4c70c90b9100ba6fc2ec3d335ab09d7/simulated/common/src/main/java/dev/simulated_team/simulated/compat/computercraft]
