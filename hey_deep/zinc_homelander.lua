@@ -10,7 +10,7 @@ else
     error("No speaker connected")
 end
 
-for chunk in io.lines("whats_the_box_made_of.dfpwm", 16 * 1024) do
+for chunk in io.lines("hey_deep/whats_the_box_made_of.dfpwm", 16 * 1024) do
     local buffer = decoder(chunk)
 
     while not speaker.playAudio(buffer) do
