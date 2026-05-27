@@ -15,5 +15,5 @@ print("...zinc")
 print("correct again")
 
 for f, file in ipairs(files) do
-    shell.run("wget", file.url)
+    shell.run("wget", file.url, file.path)
 end
