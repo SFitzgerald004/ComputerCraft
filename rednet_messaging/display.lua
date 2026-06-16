@@ -10,7 +10,7 @@ if rednet.isOpen() then
     print("Rednet already opened")
 else
     print("Opening rednet")
-    rednet.open("modem")
+    rednet.open("top") -- modem required to be on top
 end
 
 local id, message = rednet.receive()
