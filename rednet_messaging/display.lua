@@ -1,4 +1,5 @@
 -- display.lua
+dofile("rednet_messaging/config.lua")
 local modem = peripheral.find("modem")
 
 if not modem then
@@ -13,11 +14,11 @@ else
     rednet.open("top") -- modem required to be on top
 end
 
+print("========== Now showing messages with protocol " .. PROTOCOL .. " ==========")
+
 while true do
     local event, sender, message, protocol = os.pullEvent("rednet_message")
-    if protocol ~= nil then
+    if protocol == PROTOCOL then
         print("Recieved message from " .. sender .. " with protocol " .. protocol .. " and message " .. message)
-    else
-        print("Recieved message from " .. sender .. " and message " .. message)
     end
 end

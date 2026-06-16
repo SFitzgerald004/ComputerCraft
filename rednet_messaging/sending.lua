@@ -1,4 +1,5 @@
 -- sending.lua
+dofile("rednet_messaging/config.lua")
 local modem = peripheral.find("modem")
 
 if not modem then
@@ -18,4 +19,4 @@ else
 end
 
 local message = io.read()
-rednet.broadcast(message)
+rednet.broadcast(message, PROTOCOL)

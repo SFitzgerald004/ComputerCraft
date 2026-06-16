@@ -3,7 +3,9 @@ local base = "https://raw.githubusercontent.com/SFitzgerald004/ComputerCraft/mai
 
 local files = {
     { level = "common", url = base .. "README.md", path = "rednet_messaging/README.md" },
-    { level = "common", url = base .. "config.lua", path = "rednet_messaging/config.lua" }
+    { level = "common", url = base .. "config.lua", path = "rednet_messaging/config.lua" },
+    { level = "display", url = base .. "display.lua", path = "rednet_messaging/display.lua" },
+    { level = "messaging", url = base .. "messaging.lua", path = "rednet_messaging/messaging.lua" }
 }
 
 -- Contains two versions, one for send and recieve, one to just display
