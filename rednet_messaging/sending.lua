@@ -4,6 +4,8 @@ local modem = peripheral.find("modem")
 
 if not modem then
     error("No modem attached.", 0)
+else 
+    print("Modem found")
 end
 
 -- opens rednet on the modem; checks if wireless first
