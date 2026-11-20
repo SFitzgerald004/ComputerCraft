@@ -1,3 +1,6 @@
 # Aeronautics support
 CC: Tweaked should automatically be able to connect with Create: Aeronautics. They connect through the Simulated mod, which is required for Aeronautics to even work.
 This is a link to the Github source code for peripherals, might be helpful: (Github)[https://github.com/Creators-of-Aeronautics/Simulated-Project/tree/17f6409ea4c70c90b9100ba6fc2ec3d335ab09d7/simulated/common/src/main/java/dev/simulated_team/simulated/compat/computercraft]
+
+This would actually be better to use. Create Avionics is a mod specially made for connection to Create Aeronautics. (Github)[https://solastrius.github.io/CreateAvionics/]
+Best first guide to look at is the (Avionics Controller Guide)[https://solastrius.github.io/CreateAvionics/guide/ship_bridge.html]. The Avionics Controller acts as a bridge to connect to every peripheral available on the ship itself, as if every peripheral was connected up via a network. To get it setup, simply connect it up to a computer with a cable or wired modem.
