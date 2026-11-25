@@ -21,6 +21,10 @@ local function set_throttle(pos, clockwise)
     assert((type(pos) == "number"), ("pos must be a number 0-15; found type: " .. type(pos)))
     assert((type(clockwise) == "boolean"), ("clockwise must be a boolean; found type: " .. type(clockwise)))
 
+    if (pos < 0) or (pos > 15) then
+        error("pos value invalid; should be 0-15 but recieved " .. pos, 0)
+    end
+
     throt_lever.setSignal(pos)
     -- set speed controller
     -- take pos, multiply by 13.3, round
