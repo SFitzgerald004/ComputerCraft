@@ -10,9 +10,9 @@ local throt_lever = peripheral.find("throttle_lever")
 assert(speed_controller, "Speed Controller not found.")
 assert(throt_lever, "Throttle Lever not found.")
 
-if !speed_controller and !throt_lever then
+if not speed_controller and  not throt_lever then
     error("No peripherals found; Is the controller connected?")
-elseif !speed_controller or !throt_lever then
+elseif not speed_controller or not throt_lever then
     error("At least one peripheral not found; Make sure the contraption is built.")
 end
 
