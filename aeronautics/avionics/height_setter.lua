@@ -6,15 +6,14 @@ local speed_controller = peripheral.find("Create_RotationSpeedController")
 local throt_lever = peripheral.find("throttle_lever")
 
 -- check all peripherals are found
--- assert((speed_controller), (throt_lever)), "peripherals not found; Is the controller connected?")
-assert(speed_controller, "Speed Controller not found.")
-assert(throt_lever, "Throttle Lever not found.")
 
 if not speed_controller and  not throt_lever then
     error("No peripherals found; Is the controller connected?")
-elseif not speed_controller or not throt_lever then
-    error("At least one peripheral not found; Make sure the contraption is built.")
 end
+
+assert(speed_controller, "Speed Controller not found.")
+assert(throt_lever, "Throttle Lever not found.")
+
 
 -- actual function call
 local function set_throttle(pos, clockwise)
