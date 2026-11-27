@@ -2,35 +2,47 @@
 
 local hardware = {}
 
+-- used to track missing peripheral objects
+hardware.missing = {}
+
+-- look to find an optional peripheral and record it if not found. for mission, advisory and required to arm (only during operating procedures)
+local function optional(p_type, label)
+    local p = peripheral.find(p_type)
+    if not p then
+        table.insert(hardware.missing, label)
+    end
+    return p
+end
+
 -- singular peripherals
 local speed_controller = peripheral.find("Create_RotationSpeedController")
 local throt_lever = peripheral.find("throttle_lever")
 local gimbal_sensor = peripheral.find("gimbal_sensor")
-local nav_table = peripheral.find("navigation_table")
 local alt_sensor = peripheral.find("altitude_sensor")
 local phys_assembler = peripheral.find("physics_assembler")
 -- multiple peripherals
-local velocity_sensor = peripheral.find("velocity_sensor") -- only needs one, altitude sensor can get vertical speed
 local gas_burners = { peripheral.find("gas_provider") } -- gas burner calls might only be used for setting specific heights
 local propeller_bearings = { peripheral.find("propeller_bearing") }
 
--- assert to check for each peripheral
+-- peripheral checks per tier
+-- flight critical; ship cannot be armed
 assert(speed_controller, "Speed Controller not found.")
 assert(throt_lever, "Throttle Lever not found.")
 assert(gimbal_sensor, "Gimbal Sensor not found.")
-assert(nav_table, "Navigation Table not found.")
 assert(alt_sensor, "Altitude Sensor not found.")
 assert(phys_assembler, "Physics Assembler not found.")
 assert(#gas_burners > 0, "No Gas Burners found.")
-assert(velocity_sensor, "No Velocity Sensor found.")
 assert(#propeller_bearings > 0, "No Propeller Bearings found.")
+-- required to arm; cannot arm if missing at startup, set to orange warning in flight
+-- mission; orange warning, and the modes that need them become unavailable
+hardware.nav_table = optional("navigation_table", "Navigation Table")
+hardware.velocity_sensor = optional("velocity_sensor", "Velocity Sensor")
+-- advisory; yellow warning only
 
 -- expose peripherals
 hardware.throt_lever = throt_lever
-hardware.nav_table = nav_table
 hardware.alt_sensor = alt_sensor
 hardware.gas_burners = gas_burners
-hardware.velocity_sensor = velocity_sensor
 hardware.propeller_bearings = propeller_bearings
 
 -- constants
