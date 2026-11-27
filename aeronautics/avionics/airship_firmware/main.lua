@@ -42,6 +42,27 @@ local state = {
     lastError
 }
 
+-- used to find failsafe cases
+local function checkFaults()
+    -- pitch or roll over 15 degrees
+    local pitch, roll = hardware.getAngles()
+    if (math.abs(pitch) > 15) or (math.abs(roll) > 15) then
+        return true, "Pitch / Roll > 15 degrees"
+        -- state.mode = "FAILSAFE"
+    end
+
+    -- angular rate over 20 degrees/s
+    local pitchRate, yawRate, rollRate = hardware.getAngularRates()
+    if (math.abs(pitchRate) > 20) or (math.abs(yawRate) > 20) or (math.abs(rollRate) > 20) then
+        return true, "Pitch / Yaw / Roll Rate > 20 degrees/s"
+        -- state.mode = "FAILSAFE"
+    end
+
+    -- any nil readings
+
+    return false
+end
+
 local function mode(switch, rising)
     if not switch then
         state.mode = "DISARMED"
@@ -51,6 +72,16 @@ local function mode(switch, rising)
         state.mode = "ARMED"
     elseif state.mode == "ARMED" then
         -- ARMED -> FAILSAFE when any trigger fires
+        local fault, reason = checkFaults()
+        if fault then
+            state.lastError = reason
+            state.mode = "FAILSAFE"
+            return
+        end
+
+        state.hoverRPM = hardware.findHoverRPM(state.balloon_lift, state.pressure, state.constant)
+        hardware.setRPM(state.hoverRPM)
+        state.cmdRPM = state.hoverRPM
     end
 end
 
@@ -59,6 +90,8 @@ local last_switch = redstone.getInput("bottom")
 local last = os.clock()
 
 while true do
+    local tick_timer = os.startTimer(0.05)
+
     local now = os.clock()
 
     -- read all sensors into state
@@ -93,5 +126,7 @@ while true do
     -- reset last armed position
     last_switch = armed
 
-    sleep(0.05) -- prevents loop from breaking
+    repeat -- prevents loop from breaking
+        local _, id = os.pullEvent("timer")
+    until id == tick_timer
 end
