@@ -12,11 +12,7 @@
     current mode
 ]] 
 
-local ok, avi_ship = pcall(require, "avi_ship")
-
-if not ok then
-    error("avi_ship module is missing, was it deleted?", 1)
-end
+local ship = require("hardware")
 
 local state = {
     -- sensors; these get refreshed each tick

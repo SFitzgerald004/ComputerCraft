@@ -1,6 +1,6 @@
 --peripherals
 
-local avi_ship = {}
+local hardware = {}
 
 -- singular peripherals
 local speed_controller = peripheral.find("Create_RotationSpeedController")
@@ -26,12 +26,12 @@ assert(velocity_sensor, "No Velocity Sensor found.")
 assert(#propeller_bearings > 0, "No Propeller Bearings found.")
 
 -- expose peripherals
-avi_ship.throt_lever = throt_lever
-avi_ship.nav_table = nav_table
-avi_ship.alt_sensor = alt_sensor
-avi_ship.gas_burners = gas_burners
-avi_ship.velocity_sensor = velocity_sensor
-avi_ship.propeller_bearings = propeller_bearings
+hardware.throt_lever = throt_lever
+hardware.nav_table = nav_table
+hardware.alt_sensor = alt_sensor
+hardware.gas_burners = gas_burners
+hardware.velocity_sensor = velocity_sensor
+hardware.propeller_bearings = propeller_bearings
 
 -- constants
 local PROP_DIR = -1 -- propeller direction; used to set speed controller to clockwise rotation
@@ -45,7 +45,7 @@ local GRAVITY = math.sqrt(g[1]^2 + g[2]^2 + g[3]^2)
 
 -- getters / setters
 -- speed_controller
-function avi_ship.setRPM(rpm)
+function hardware.setRPM(rpm)
     rpm = math.max(-256, math.min(256, rpm))
     rpm = math.floor(rpm + 0.5)
     return speed_controller.setTargetSpeed(rpm * PROP_DIR)
@@ -53,19 +53,19 @@ end
 
 -- gimbal_sensor
 -- returns: pitch, roll
-function avi_ship.getAngles()
+function hardware.getAngles()
     local a = gimbal_sensor.getAngles()
     return a[1], a[2]
 end
 
 -- returns: pitchRate, yawRate, rollRate
-function avi_ship.getAngularRates()
+function hardware.getAngularRates()
     local ar = gimbal_sensor.getAngularRates()
     return ar[1], ar[2], ar[3]
 end
 
 -- returns: ax, ay, az
-function avi_ship.getLinearAcceleration()
+function hardware.getLinearAcceleration()
     local la = gimbal_sensor.getLinearAcceleration()
     return la[1], la[2], la[3]
 end
@@ -99,14 +99,14 @@ Notes:
 ]]
 
 -- dynamic hover constant computation
-function avi_ship.calibrateThrustConstant(balloon_lift, air_pressure, rpm)
+function hardware.calibrateThrustConstant(balloon_lift, air_pressure, rpm)
     local ship_weight = MASS * GRAVITY
     return (ship_weight - balloon_lift) / (math.abs(rpm) * air_pressure)
 end
 
-function avi_ship.findHoverRPM(balloon_lift, air_pressure, constant)
+function hardware.findHoverRPM(balloon_lift, air_pressure, constant)
     local ship_weight = MASS * GRAVITY
     return (ship_weight - balloon_lift) / (constant * air_pressure)
 end
 
-return avi_ship
+return hardware
