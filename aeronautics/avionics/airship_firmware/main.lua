@@ -12,7 +12,8 @@
     current mode
 ]] 
 
-local ship = require("hardware")
+local hardware = require("hardware")
+assert(hardware, "hardware module not found, was it deleted?")
 
 local state = {
     -- sensors; these get refreshed each tick
@@ -46,14 +47,14 @@ local last = os.clock()
 while true do
     local now = os.clock()
     -- read all sensors into state
-    state.height = ship.alt_sensor.getHeight()
-    state.hor_velocity = ship.velocity_sensor.getVelocity()
-    state.ver_velocity = ship.alt_sensor.getVerticalSpeed()
-    state.pressure = ship.alt_sensor.getAirPressure()
-    state.pitch, state.roll = ship.getAngles()
-    state.pitch_rate, state.yaw_rate, state.roll_rate = ship.getAngularRates()
-    state.balloon_lift = ship.gas_burners[1].getBalloonLift()
-    state.propellerRPM = math.abs(ship.propeller_bearings[1].getRotationSpeed()) * 10 / 3
+    state.height = hardware.alt_sensor.getHeight()
+    state.hor_velocity = hardware.velocity_sensor.getVelocity()
+    state.ver_velocity = hardware.alt_sensor.getVerticalSpeed()
+    state.pressure = hardware.alt_sensor.getAirPressure()
+    state.pitch, state.roll = hardware.getAngles()
+    state.pitch_rate, state.yaw_rate, state.roll_rate = hardware.getAngularRates()
+    state.balloon_lift = hardware.gas_burners[1].getBalloonLift()
+    state.propellerRPM = math.abs(hardware.propeller_bearings[1].getRotationSpeed()) * 10 / 3
 
     -- set timing / health
     state.dt = now - last
