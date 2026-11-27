@@ -1,3 +1,5 @@
+-- install script location:
+-- "https://raw.githubusercontent.com/SFitzgerald004/ComputerCraft/main/aeronautics/avionics/airship_firmware/install.lua"
 local base = "https://raw.githubusercontent.com/SFitzgerald004/ComputerCraft/main/aeronautics/avionics/airship_firmware/"
 
 local files = {
