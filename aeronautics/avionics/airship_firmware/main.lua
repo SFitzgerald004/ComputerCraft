@@ -42,13 +42,30 @@ local state = {
     lastError
 }
 
+local function mode(switch, rising)
+    if not switch then
+        state.mode = "DISARMED"
+    elseif (rising and state.mode == "DISARMED") then 
+        -- DISARMED -> ARMED when the switch turns on, but only if no critical faults are active
+        -- does not yet check for critical faults
+        state.mode = "ARMED"
+    elseif state.mode == "ARMED" then
+        -- ARMED -> FAILSAFE when any trigger fires
+    end
+end
+
+local last_switch = redstone.getInput("bottom")
+
 local last = os.clock()
 
 while true do
     local now = os.clock()
+
     -- read all sensors into state
     state.height = hardware.alt_sensor.getHeight()
-    state.hor_velocity = hardware.velocity_sensor.getVelocity()
+    if hardware.velocity_sensor then
+        state.hor_velocity = hardware.velocity_sensor.getVelocity()
+    end
     state.ver_velocity = hardware.alt_sensor.getVerticalSpeed()
     state.pressure = hardware.alt_sensor.getAirPressure()
     state.pitch, state.roll = hardware.getAngles()
@@ -61,9 +78,20 @@ while true do
     last = now
     if state.dt > 0 then state.hz = 1 / state.dt end
 
+    -- check that the lever to arm the ship is enabled
+    local armed = redstone.getInput("bottom")
+
+    -- check to make sure ship does not become armed immediately upon assembly
+    local rising = armed and not last_switch
+    mode(armed, rising)
+
     -- test prints
     print("state.hz: " .. state.hz)
     print("state.dt: " .. state.dt)
+    print("state.mode: " .. state.mode)
+
+    -- reset last armed position
+    last_switch = armed
 
     sleep(0.05) -- prevents loop from breaking
 end
