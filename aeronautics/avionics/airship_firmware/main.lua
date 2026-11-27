@@ -138,7 +138,7 @@ while true do
     -- reset last armed position
     last_switch = armed
 
-    if state.mode == "DISARMED" then
+    if state.mode ~= "DISARMED" then
         logLine("========== NEW LOOP ==========")
         for property, property_value in pairs(state) do
             local text = property .. ": " .. property_value
