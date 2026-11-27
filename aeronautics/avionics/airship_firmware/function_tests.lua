@@ -38,3 +38,17 @@ for _, r in ipairs(rows) do
     print(string.format("Str %2d  actual %3d  predicted %6.2f  error %+5.2f",
         r[1], r[2], predicted, predicted - r[2]))
 end
+
+-- rpm setter tests
+local function setRPM(rpm)
+    rpm = math.max(-256, math.min(256, rpm))
+    rpm = math.floor(rpm + 0.5)
+    -- return speed_controller.setTargetSpeed(rpm * PROP_DIR)
+    return(rpm * -1)
+end
+
+local test_rpm = 32
+local test_rpm_compute = setRPM(test_rpm)
+print(test_rpm)
+print(test_rpm_compute)
+print(setRPM(-32))
