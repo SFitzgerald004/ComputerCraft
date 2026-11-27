@@ -27,7 +27,7 @@ local function set_throttle(pos, clockwise)
     throt_lever.setSignal(pos)
     -- set speed controller
     -- take pos, multiply by 13.3, round
-    local rpm_value = math.floor((pos * 13.3) + 0.5)
+    local rpm_value = math.floor((pos * 15.1) + 0.5)
     -- !! VERY IMPORTANT
 
     -- the speed controller is clamped to +-256. that means
