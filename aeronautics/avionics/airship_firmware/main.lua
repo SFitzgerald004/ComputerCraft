@@ -15,6 +15,18 @@
 local hardware = require("hardware")
 assert(hardware, "hardware module not found, was it deleted?")
 
+local DEBUG_LOG = true -- only set to true when written info is needed
+local log_file = DEBUG_LOG and fs.open("flight.log", "w") or nil
+
+local function logLine(text)
+    if not log_file then return end
+    local ok = pcall(function()
+        log_file.writeLine(text)
+        log_file.flush()
+    end)
+    if not ok then log_file = nil end
+end
+
 local state = {
     -- sensors; these get refreshed each tick
     --[[
@@ -125,6 +137,15 @@ while true do
 
     -- reset last armed position
     last_switch = armed
+
+    if state.mode == "DISARMED" then
+        logLine("========== NEW LOOP ==========")
+        for property, property_value in pairs(state) do
+            local text = property .. ": " .. property_value
+            logLine(text)
+        end
+    end
+    
 
     repeat -- prevents loop from breaking
         local _, id = os.pullEvent("timer")
